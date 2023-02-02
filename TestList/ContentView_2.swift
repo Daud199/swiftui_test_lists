@@ -21,12 +21,12 @@ struct ContentView_2: View {
         Item(name: "Item 4"),
     ]
     var body: some View {
-        NavigationStack{
+        VStack{
             List{
                 Section("Elements"){
                     ForEach(elements, id: \.name) {el in
                         Text(el.name)
-                    }
+                    }.onDelete(perform: emptyFunc)
                 }
                 Section("Items"){
                     ForEach(items, id: \.name) {itm in
@@ -37,6 +37,10 @@ struct ContentView_2: View {
             .navigationTitle("Menu")
         }
     }
+}
+
+func emptyFunc(at offset: IndexSet) {
+    
 }
 
 struct Element{
