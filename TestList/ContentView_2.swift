@@ -17,11 +17,12 @@ struct ContentView_2: View {
     let items: [Item] = [
         Item(name: "Item 1"),
         Item(name: "Item 2"),
+        Item(name: "Item 2"),
         Item(name: "Item 3"),
         Item(name: "Item 4"),
     ]
     var body: some View {
-        VStack{
+        NavigationStack{
             List{
                 Section("Elements"){
                     ForEach(elements, id: \.name) {el in
@@ -30,24 +31,27 @@ struct ContentView_2: View {
                 }
                 Section("Items"){
                     ForEach(items, id: \.name) {itm in
-                        Text(itm.name)
+                        NavigationLink(itm.name, value: itm)
                     }
                 }
             }
-            .navigationTitle("Menu")
+            .navigationTitle("Stuff")
+            .navigationDestination(for: Item.self){item in
+                Text(item.name)
+            }
         }
     }
 }
 
 func emptyFunc(at offset: IndexSet) {
-    
+    print(offset)
 }
 
 struct Element{
     let name: String
 }
 
-struct Item {
+struct Item: Hashable {
     let name: String
 }
 
